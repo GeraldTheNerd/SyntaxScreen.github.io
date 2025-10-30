@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyntaxScreen - Web Phone for Developers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Use the same icon for the website tab -->
+    <link rel="icon" href="icon.png" type="image/png">
+</head>
+<body>
+
+    <div class="theme-switcher-container">
+        <label class="theme-switcher">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <header class="hero">
+        <div class="container">
+            <img src="icon.png" alt="SyntaxScreen Logo" class="logo">
+            <h1>SyntaxScreen</h1>
+            <p class="subtitle">The Developer's Web Phone.</p>
+            <p class="description">
+                A simple, powerful desktop tool for responsive web development and testing.
+                Preview your mobile websites with realistic device frames and overlays, right on your desktop.
+            </p>
+            <a href="SyntaxScreen.zip" class="cta-button">Download for Windows</a>
+            <p class="version-info">Version 1.0 | Free and Open Source</p>
+        </div>
+    </header>
+
+    <section id="showcase" class="showcase-section">
+        <div class="container">
+            <h2>See It In Action</h2>
+            <p class="section-description">A clean and intuitive interface designed for developers.</p>
+            <div class="screenshot-grid">
+                <div class="screenshot-wrapper">
+                    <img src="GUI.png" alt="SyntaxScreen application in light mode">
+                </div>
+                <div class="screenshot-wrapper">
+                    <img src="App_in_use.png" alt="SyntaxScreen application in dark mode">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="features" class="features-section alt-bg">
+            <div class="container">
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Multiple Device Presets</h3>
+                        <p>Test on a wide range of pre-configured devices like iPhone, iPad, and Pixel, or add your own custom resolutions.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Realistic Overlays</h3>
+                        <p>Simulate real-world conditions with accurate screen overlays for notches and the Dynamic Island on modern iPhones.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🛠️</div>
+                        <h3>Developer Friendly</h3>
+                        <p>Integrated Dev Tools (Ctrl+Shift+I) and quick reload (Ctrl+R) for a seamless and efficient debugging workflow.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <h3>Highly Customizable</h3>
+                        <p>Switch between light and dark themes, manage your own list of custom devices, and choose to keep the control panel open or not.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="download" class="download-section">
+            <div class="container">
+                <h2>Get Started with SyntaxScreen</h2>
+                <p>Ready to streamline your responsive testing? Download the latest version for Windows now.</p>
+                <a href="SyntaxScreen.zip" class="cta-button">Download SyntaxScreen v1.0</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SyntaxScreen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Function to apply the theme
+        const applyTheme = (isDark) => {
+            body.classList.toggle('dark-mode', isDark);
+            themeToggle.checked = isDark;
+        };
+        
+        // Function to determine and apply the theme based on priority
+        const updateTheme = () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                // Use the user's explicit preference
+                applyTheme(savedTheme === 'dark');
+            } else {
+                // Otherwise, follow the system preference
+                applyTheme(systemThemeQuery.matches);
+            }
+        };
+
+        // Add event listener for the manual toggle switch
+        themeToggle.addEventListener('change', () => {
+            const isDark = themeToggle.checked;
+            // Save the user's explicit choice to local storage
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            applyTheme(isDark);
+        });
+
+        // Listen for changes in the system's theme preference
+        systemThemeQuery.addEventListener('change', updateTheme);
+
+        // Set the initial theme on page load
+        updateTheme();
+    </script>
+</body>
+</html>
